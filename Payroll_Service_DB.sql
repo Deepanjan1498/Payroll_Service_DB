@@ -45,16 +45,16 @@ SELECT gender, MAX(salary) FROM employee_payroll GROUP BY gender;
 
 #UC8
 ALTER TABLE employee_payroll ADD phone_number BIGINT AFTER name;
-ALTER TABLE employee_payroll ADD address VARCHAR(250) AFTER phone_number;
-ALTER TABLE employee_payroll ADD department VARCHAR(150) NOT NULL AFTER address;
-ALTER TABLE employee_payroll ALTER address SET DEFAULT 'TBD';
+ALTER TABLE employee_payroll ADD address      VARCHAR(250) AFTER phone_number;
+ALTER TABLE employee_payroll ADD department   VARCHAR(150) NOT NULL AFTER address;
+ALTER TABLE employee_payroll ALTER address     SET DEFAULT 'TBD';
 
 #UC9	
 ALTER TABLE employee_payroll RENAME COLUMN salary TO basic_pay;
 ALTER TABLE employee_payroll ADD deductions Double NOT NULL AFTER basic_pay;
 ALTER TABLE employee_payroll ADD taxable_pay Double NOT NULL AFTER deductions;
-ALTER TABLE employee_payroll ADD tax Double NOT NULL AFTER taxable_pay;
-ALTER TABLE employee_payroll ADD net_pay Double NOT NULL AFTER tax;
+ALTER TABLE employee_payroll ADD tax         Double NOT NULL AFTER taxable_pay;
+ALTER TABLE employee_payroll ADD net_pay     Double NOT NULL AFTER tax;
 
 #UC10
 UPDATE employee_payroll SET department = 'Sales' WHERE name = 'Terisa';  
@@ -105,7 +105,7 @@ INSERT INTO company VALUES
  	(3,'GHI');
 INSERT INTO employee VALUES 					
  	(101, 1, 'Bill', '9876543210', 'California', 'M' ),
-	(102, 1, 'Terisa', '8876543211', 'San Francisco', 'F' ),
+	(102, 3, 'Terisa', '8876543211', 'San Francisco', 'F' ),
 	(103, 2, 'Charlie', '7876543212', 'New York', 'M' );
 INSERT INTO payroll VALUES 			
  	(101,100000,10000,90000,5000,85000),
@@ -122,4 +122,16 @@ INSERT INTO department VALUES
  	(102,11),
  	(103,14);
 
+#UC12
+  SELECT * FROM employee;
+  SELECT * FROM employee_department; 
+  SELECT * FROM department; 
+  SELECT * FROM payroll;
+  SELECT * FROM company;
+  SELECT gender, AVG(net_pay) FROM 
+  (employee INNER JOIN payroll ON employee.id=payroll.emp_id)
+  GROUP BY gender;
+  SELECT gender, MAX(net_pay) FROM
+  (employee INNER JOIN payroll ON employee.id=payroll.emp_id)
+   GROUP BY gender;
 
