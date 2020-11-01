@@ -27,3 +27,9 @@ SELECT * FROM employee_payroll;
 SELECT salary FROM employee_payroll WHERE name = 'Bill';	
 SELECT * FROM employee_payroll 
 WHERE start BETWEEN CAST('2018-01-01' AS DATE) AND DATE(NOW());
+
+#UC6 
+ALTER TABLE employee_payroll ADD gender CHAR(1) AFTER name; 	
+UPDATE employee_payroll SET gender = 'F' where name = 'Terisa';
+UPDATE employee_payroll SET gender = 'M' WHERE name = 'Bill' or name = 'CHARLIE';
+UPDATE employee_payroll SET salary = 3000000.00 WHERE name = 'Terisa';
